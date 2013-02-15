@@ -42,3 +42,4 @@ gem 'node'
 
 # To use debugger
 # gem 'debugger'
+gem 'fog'
