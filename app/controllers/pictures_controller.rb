@@ -45,7 +45,7 @@ class PicturesController < ApplicationController
     respond_to do |format|
       if @picture.save
       	flash[:notice] = "Successfully created image."
-     	redirect_to @picture.album
+     	redirect_to album_path(@picture.album_id)
       else
         format.html { render action: "new" }
         format.json { render json: @picture.errors, status: :unprocessable_entity }
