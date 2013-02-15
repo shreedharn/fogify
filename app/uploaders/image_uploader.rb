@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'CarrierWave' 
+#require 'CarrierWave' 
 
 class ImageUploader < CarrierWave::Uploader::Base
 
