@@ -2,3 +2,5 @@ public/uploads
 log/
 tmp/
 setaws.bat
+config/application.yml
+

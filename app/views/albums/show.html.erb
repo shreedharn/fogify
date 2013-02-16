@@ -1,17 +1,19 @@
+<%= stylesheet_link_tag "application" %>
 <%  @album.name %>
 <p id="notice"><%= notice %></p>
-<div id="images">
-  <% for picture in @album.pictures %>
-    <div class="images">
-      <%= image_tag picture.image_url(:thumb) if picture.image? %>
-      <div class="name"><%= picture.img_name %></div>
-      <div class="actions">
- 
-      </div>
-    </div>
-  <% end %>
-  <div class="clear"></div>
+
+
+<% for picture in @album.pictures %>
+
+<!-- div class="name"><%= picture.img_name %></div -->
+<div class="img">
+  <%= image_tag picture.image_url(:thumb) if picture.image? %>
 </div>
+
+
+
+<% end %>
+
 
 <p>
   <%= link_to "Add a Picture", new_picture_path(:album_id => @album) %> |
