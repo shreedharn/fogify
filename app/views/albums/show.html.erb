@@ -15,8 +15,8 @@
 <% end %>
 
 
-<p>
+<p class="clear_div">
   <%= link_to "Add a Picture", new_picture_path(:album_id => @album) %> |
   <%= link_to "Remove Album", @album, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View Albums", albums_path %>
+  <%= link_to "Back to Album list", albums_path %>
 </p>

@@ -11,10 +11,14 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-config = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
-config.merge! config.fetch(Rails.env, {})
-config.each do |key, value|
-  ENV[key] = value unless value.kind_of? Hash
+fpath = File.expand_path('../application.yml', __FILE__)
+
+if File.exist?(fpath)
+	config = YAML.load(File.read(fpath))
+	config.merge! config.fetch(Rails.env, {})
+	config.each do |key, value|
+	  ENV[key] = value unless value.kind_of? Hash
+	end
 end
 
 module Shreefogify
