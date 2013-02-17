@@ -4,14 +4,7 @@
 
 
 <% for picture in @album.pictures %>
-
-<!-- div class="name"><%= picture.img_name %></div -->
-<div class="img">
-  <%= image_tag picture.image_url(:thumb) if picture.image? %>
-</div>
-
-
-
+<%= link_to image_tag(picture.image_url(:thumb)), picture, {:class => 'img'} %>
 <% end %>
 
 

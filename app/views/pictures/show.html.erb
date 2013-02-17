@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <%= stylesheet_link_tag "application" %>
   <b>Album:</b>
   <%= @picture.album_id %>
 </p>
@@ -9,6 +10,9 @@
   <b>Img name:</b>
   <%= @picture.img_name %>
 </p>
+
+<%= image_tag @picture.image_url, :class => 'imgfms' %>
+
 
 <p>
   <b>Img comment:</b>
