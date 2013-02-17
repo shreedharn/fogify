@@ -44,7 +44,7 @@ class PicturesController < ApplicationController
 
     respond_to do |format|
       if @picture.save
-      	flash[:notice] = "Successfully created image."
+      	flash[:notice] = "Image successfully pushed to amazon S3 bucket"
      	format.html { redirect_to album_path(@picture.album_id) }
       else
         format.html { render action: "new" }

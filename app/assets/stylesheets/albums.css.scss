@@ -2,36 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 div.img
-  {
+{
   margin:2px;
   border:1px solid #0000ff;
-  height:auto;
-  width:auto;
   float:left;
   text-align:center;
-  }
+}
 div.img img
-  {
+{
   display:inline;
-  width: 200px;
-  height: 200px;
-  margin:3px;
-  border:1px solid #ffffff;
-  }
-div.img a:hover img
-  {
-  border:1px solid #0000ff;
-  }
-div.desc
-  {
-  text-align:center;
-  font-weight:normal;
-  width:120px;
-  margin:2px;
-  }
-  
+  max-width: 200px;
+  max-height: 150px;
+  margin:4px;
+  border:2px solid #ffffff;
+}
 p.clear_div
 {
-clear:both;
-margin-bottom:2px;
+	clear:both;
+	margin-bottom:2px;
 }
