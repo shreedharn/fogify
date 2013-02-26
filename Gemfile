@@ -31,6 +31,7 @@ gem 'rmagick'
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'node'
+gem 'devise'
 gem 'fog'
 
 # To use ActiveModel has_secure_password
