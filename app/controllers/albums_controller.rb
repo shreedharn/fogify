@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
   # GET /albums
   # GET /albums.json
+  before_filter :authenticate_user!
   def index
     @albums = Album.all
 
