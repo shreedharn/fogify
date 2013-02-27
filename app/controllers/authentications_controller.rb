@@ -44,7 +44,8 @@ class AuthenticationsController < ApplicationController
 		auth = request.env['omniauth.auth']
 		current_user.authentications.create(:provider => auth['provider'], :uid => auth['uid'])
 		flash[:notice] = "Authentication successful"
-		redirecto_to :root
+		@omni_dump = request.env["omniauth.auth"].to_yaml
+		#redirecto_to :root
   end
 
   # PUT /authentications/1
