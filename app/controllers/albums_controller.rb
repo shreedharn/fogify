@@ -16,10 +16,16 @@ class AlbumsController < ApplicationController
   def show
     @album = Album.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @album }
+	if user_signed_in?
+		respond_to do |format|
+		  format.html # show.html.erb
+		  format.json { render json: @album }
+		end
+	else
+        format.html { render action: "show" }
+        format.json { render json: @album.errors, status: :unprocessable_entity }
     end
+	
   end
 
   # GET /albums/new
