@@ -6,7 +6,7 @@ class CreateAuthentications < ActiveRecord::Migration
       t.string :uid
       t.string :uname
       t.string :uemail
-
+      t.text :access_token
       t.timestamps
     end
   end
