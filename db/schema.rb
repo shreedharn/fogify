@@ -25,8 +25,9 @@ ActiveRecord::Schema.define(:version => 20130227035127) do
     t.string   "uid"
     t.string   "uname"
     t.string   "uemail"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "access_token"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "pictures", :force => true do |t|

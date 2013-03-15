@@ -1,6 +1,7 @@
 public/uploads
 log/
 tmp/
+.idea/
 setaws.bat
 config/application.yml
 

@@ -10,6 +10,7 @@ gem 'pg'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'thin'
 end
 
 
@@ -26,14 +27,19 @@ end
 
 
 
-gem 'execjs'
-gem 'rmagick'
-gem 'jquery-rails'
+#gem 'execjs'
+#gem 'rmagick'
+
 gem 'carrierwave'
-gem 'node'
-gem 'devise'
+#gem 'node'
+gem 'jquery-rails'
+gem 'devise', '~> 2.2.3'
 gem 'fog'
-gem 'omniauth-facebook'
+gem 'omniauth', '~> 1.1.1'
+gem 'omniauth-facebook', '~> 1.4.1'
+gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+gem 'koala', '~> 1.6.0'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

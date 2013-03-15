@@ -1,8 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-
-
+require 'devise'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -75,5 +74,6 @@ module Shreefogify
 	#or load models when precompiling your assets.
 	config.assets.initialize_on_precompile = false
 	
+    config.autoload_paths << "#{Rails.root}/lib"
   end
 end
