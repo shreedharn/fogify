@@ -1,20 +1,17 @@
 Alright we are here to experiment carrierwave gem with S3 bucket
 
 <br>
-<u> Backklog: </u>
+<u> Backlog: </u>
 - Fix routes
-- Show album name instead of album id while creation
-- Devise, omniauth, omniauth-facebook integration
-
+- Fetch album from facebook and display
+- Carrierwave
+- CSS template addition
 
 <br>
 
 <u> Completed </u>
-- Heroku Initial deployment 
-- S3 bucket integration 
-- Minimal style sheets for simple gallery like presentation
-
+- Heroku Initial deployment verified
+- Omniauth facebook callback support added
+- Koala integration with simple unit test of fetching the profile
 
 <br>
-<u> Low priority: </u>
-CSS / Background polishing

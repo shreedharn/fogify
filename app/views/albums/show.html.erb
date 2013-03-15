@@ -1,15 +1,2 @@
-<%= stylesheet_link_tag "application" %>
-<%  @album.name %>
-<p id="notice"><%= notice %></p>
-
-
-<% for picture in @album.pictures %>
-<%= link_to image_tag(picture.image_url(:thumb)), picture, {:class => 'img'} %>
-<% end %>
-
-
-<p class="clear_div">
-  <%= link_to "Add a Picture", new_picture_path(:album_id => @album) %> |
-  <%= link_to "Remove Album", @album, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "Back to Album list", albums_path %>
-</p>
+<h1>Albums#Show</h1>
+<p>Find me in app/views/album/Show.html.erb</p>
