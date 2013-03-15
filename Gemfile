@@ -27,11 +27,11 @@ end
 
 
 
-#gem 'execjs'
-#gem 'rmagick'
+gem 'execjs'
+gem 'rmagick'
 
 gem 'carrierwave'
-#gem 'node'
+gem 'node'
 gem 'jquery-rails'
 gem 'devise', '~> 2.2.3'
 gem 'fog'
