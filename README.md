@@ -1,17 +1,17 @@
-Alright we are here to experiment carrierwave gem with S3 bucket
+Alright we are here to experiment gem that work with cloud services. Example: Carrierwave
 
 <br>
 <u> Backlog: </u>
 - Fix routes
 - Fetch album from facebook and display
-- Carrierwave
-- CSS template addition
+- Carrierwave or fog ?
 
 <br>
 
 <u> Completed </u>
-- Heroku Initial deployment verified
-- Omniauth facebook callback support added
-- Koala integration with simple unit test of fetching the profile
+Use Omniauth for facebook authentication
+Use Koala integration for facebook integration
+Use Twitter Bootstrap
+<i> Heroku Initial deployment verified     </i>
 
 <br>
