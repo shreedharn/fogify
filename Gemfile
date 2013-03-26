@@ -28,6 +28,7 @@ end
 
 
 gem 'execjs'
+gem 'therubyracer', :platforms => :ruby
 gem 'rmagick'
 
 gem 'carrierwave'
@@ -39,7 +40,8 @@ gem 'omniauth', '~> 1.1.1'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
 gem 'koala', '~> 1.6.0'
-
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
