@@ -1,7 +1,27 @@
-<h3>Album#index</h3>
-<%  @albums.each do |album| %>
-<div class="row">
- <div class="span3"> <p> <%= album['name']  %> </p> </div>
- <div class="span3"><p> <%= album['description']  %> </p> </div>
-</div>
+<h3>Albums with most likes ! </h3>
+<%
+  photo_wide, photo_tall = getimg_w_h(@photos)
+%>
+<% if @photos.nil?  %>
+    <div class="alert"> Unable to locate an album with maximum likes ! </div>
 <% end %>
+
+<div class="row">
+  <ul class="thumbnails">
+
+  <% unless photo_wide.nil?  %>
+    <% photo_wide.each do |photo| %>
+        <li class="span3">
+          <%=   link_to(image_tag(photo['src_big']), photo['link'], nil) %>
+        </li>
+    <% end %>
+  <% end %>
+    <% unless photo_tall.nil?  %>
+      <% photo_tall.each do |photo| %>
+        <li class="span3">
+          <%=   link_to(image_tag(photo['src_big']), photo['link'], nil) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

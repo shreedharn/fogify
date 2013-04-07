@@ -1,8 +1,11 @@
 <section id="deviseauth">
-  <h2>Authentication Services - Setting</h2>
+  <h3>Welcome to fogify </h3>
 
   <div id="currservices">
-    <h3>The following <%= @authentications.count == 1 ? 'account is' : 'accounts are' %> connected with your local account at fogify:</h3>
+
+    <div class="alert alert-info">
+      Account Information:
+    </div>
 
     <% @authentications.each do |authentication| %>
         <div class="services_used">
