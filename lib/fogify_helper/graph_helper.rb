@@ -1,5 +1,33 @@
 module FogifyHelper
   module GraphHelper
+
+    #operates on facebook fql.
+    #no vanilla object just use the json hash through out
+    def get_album_with_max_likes(graph_fql)
+
+      return nil if graph_fql.nil?
+      album_max = nil
+      #current limit work with 200 albums
+      albums =  graph_fql.fql_query("select object_id,  photo_count, like_info.like_count from album where owner=me() LIMIT 0,200")
+      return nil if albums.nil?
+      album_max = albums[0]
+      albums[1..-1].each do |album|
+        album_max = album if  album['like_info']['like_count'] > album_max['like_info']['like_count']
+      end
+      album_max
+    end
+
+    def get_pics_info(graph_fql, album_id, limit_count)
+      return nil if graph_fql.nil? || album_id.nil? || limit_count.nil?
+      # SELECT object_id, caption, src, src_big FROM photo WHERE album_object_id = '10151261394143928' LIMIT 0,12
+      query_string = <<-eos
+          select object_id, caption, link, src, src_big, src_big_height, src_big_width
+          FROM photo WHERE album_object_id = '#{album_id}' LIMIT 0,#{limit_count}
+      eos
+      photos =  graph_fql.fql_query(query_string)
+
+    end
+
     def get_album_ids (album_collections)
       album_ids = []
       return nil if album_collections.nil?
@@ -8,6 +36,7 @@ module FogifyHelper
       }
       album_ids
     end
+
 
     def get_likes_info(graph_hash)
       likes_hash = graph_hash['likes']
