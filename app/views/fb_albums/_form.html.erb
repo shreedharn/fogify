@@ -1,0 +1,17 @@
+<%= form_for(@fb_album) do |f| %>
+  <% if @fb_album.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fb_album.errors.count, "error") %> prohibited this fb_album from being saved:</h2>
+
+      <ul>
+      <% @fb_album.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
