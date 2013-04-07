@@ -1,0 +1,31 @@
+<h3>my albums max likes ! </h3>
+<%
+   all_likes = @max_likes['likes']["data"]
+   all_comments = @max_likes['comments']["data"]
+   image_source_info = @max_likes['source']
+%>
+<div class='row'>
+  <div class="span6">.
+<p> <%=  image_tag(image_source_info) %> </p>
+   </div>
+  <div class="span3">
+<p> <b> Likes </b></p>
+<ul>
+<% all_likes.each do |like_info| %>
+   <li> <p> <%=  like_info["name"] %></p> </li>
+<% end %>
+</ul>
+    </div>
+  </div>
+<div class="row">
+    <div class="span8">
+        <p> <h4> Comments </h4></p>
+
+      <% all_comments.each do |comment_info| %>
+           <p> <b> <%=  comment_info['from']['name'] %>: </b>
+           <%= comment_info['message'] %></p>
+      <% end %>
+    </div>
+<br/>
+</div>
+
