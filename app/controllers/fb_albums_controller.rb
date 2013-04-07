@@ -18,11 +18,11 @@ class FbAlbumsController < ApplicationController
         photos = @graph.get_object("#{album_id}/photos") #10151114918023928
         @max_likes, max_count = get_most_liked(photos, @max_likes)
 
-#=begin This is for quick testing
+=begin This is for quick testing
         unless @max_likes['comments'].nil?
           break unless @max_likes['comments']['data'].nil?
         end
-#=end
+=end
       }
     rescue => e
       p e.message
