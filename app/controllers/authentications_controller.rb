@@ -66,7 +66,7 @@ class AuthenticationsController < ApplicationController
               existinguser.save!
               flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
               sign_in(:user, existinguser)
-              redirect_to  :album => index
+              redirect_to  :fb_albums => index
             else
               # let's create a new user: register this user and add this authentication method for this user
               name = name[0, 39] if name.length > 39             # otherwise our user validation will hit us
@@ -85,7 +85,7 @@ class AuthenticationsController < ApplicationController
               # flash and sign in
               flash[:myinfo] = 'Your account with fogify has been created via ' + provider.capitalize + '. In your profile you can change your personal information and add a local password.'
               sign_in(:user, user)
-              redirect_to  :albums => index
+              redirect_to  :fb_albums => index
             end
           else
             flash[:error] =  auth_route.capitalize + ' can not be used to sign-up on fogify as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + auth_route.capitalize + ' from your profile.'
