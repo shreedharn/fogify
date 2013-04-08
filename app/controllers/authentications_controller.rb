@@ -24,7 +24,7 @@ class AuthenticationsController < ApplicationController
 =begin  Block not supported
       elsif auth_route == 'google'
         omniauth['info']['email'] ? email = omniauth['info']['email'] : email = ""
-        omniauth['info']['name'] ? name = omniauth['info']['name'] : name = ""
+        omniauth['info']['name'] ? name =e    omniauth['info']['name'] : name = ""
         omniauth['uid'] ? uid = omniauth['uid'] : uid = ''
         omniauth['provider'] ? provider = omniauth['provider'] : provider = ""
       end
@@ -61,12 +61,21 @@ class AuthenticationsController < ApplicationController
             profile = @graph.get_object("me")
             if existinguser
               # map this new login method via a authentication provider to an existing account if the email address is the same
-#             existinguser.authentications.create(:provider => provider, :uid => uid, :uname => name, :uemail => email)
-              existinguser.authentications.access_token =  access_token
+              user_auth = existinguser.authentications
+
+              rec_create = true if ((user_auth.nil?) || (user_auth.size == 0))
+              auth_rec =  user_auth.where("uemail = :uemail AND provider = :provider",
+                                          {:provider => provider, :uemail => email }).first unless rec_create
+              rec_create = true if ((auth_rec.nil?) || (auth_rec.size == 0))
+
+              if rec_create
+              auth_rec = user_auth.create(:provider => provider, :uid => uid, :uname => name, :uemail => email,
+                    :access_token => access_token)
+              end
+              auth_rec.access_token = access_token
               existinguser.save!
               flash[:notice] = 'Sign in via ' + provider.capitalize + ' has been added to your account ' + existinguser.email + '. Signed in successfully!'
-              sign_in(:user, existinguser)
-              redirect_to  :fb_albums => index
+              sign_in_and_redirect(:user, existinguser)
             else
               # let's create a new user: register this user and add this authentication method for this user
               name = name[0, 39] if name.length > 39             # otherwise our user validation will hit us
@@ -84,8 +93,7 @@ class AuthenticationsController < ApplicationController
 
               # flash and sign in
               flash[:myinfo] = 'Your account with fogify has been created via ' + provider.capitalize + '. In your profile you can change your personal information and add a local password.'
-              sign_in(:user, user)
-              redirect_to  :fb_albums => index
+              sign_in_and_redirect(:user, user)
             end
           else
             flash[:error] =  auth_route.capitalize + ' can not be used to sign-up on fogify as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + auth_route.capitalize + ' from your profile.'
