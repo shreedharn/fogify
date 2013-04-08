@@ -1,7 +1,10 @@
-<h3>my albums max likes ! </h3>
+<h3>my fb photo with max likes ! </h3>
 <%
-   all_likes = @max_likes['likes']["data"]
-   all_comments = @max_likes['comments']["data"]
+  unless @max_likes['likes'].nil?
+   all_likes = @max_likes['likes']['data']
+
+
+   all_comments = @max_likes['comments'].nil? ? [] : @max_likes['comments']['data']
    image_source_info = @max_likes['source']
 %>
 <div class='row'>
@@ -28,4 +31,7 @@
     </div>
 <br/>
 </div>
+<% else %>
+    <div class="alert"> Unable to locate a photo with maximum likes ! </div>
+<% end %>
 
