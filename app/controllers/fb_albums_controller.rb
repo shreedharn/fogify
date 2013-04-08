@@ -3,40 +3,50 @@ class FbAlbumsController < ApplicationController
   # GET /fb_albums.json
   include FogifyHelper::GraphHelper
   before_filter :authenticate_user!
+
   def index
 
     @max_likes, max_count = nil, nil
-    begin
-      user_auth = current_user.authentications
-      this_auth = user_auth.where(:uemail => current_user.email).first
 
+    user_auth = current_user.authentications
+    this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
+                                {:provider => 'facebook', :uemail => current_user.email }).first
+
+
+    if (this_auth.nil? || this_auth.access_token.nil?)
+      redirect_to 'auth/facebook'
+    else
       @graph = Koala::Facebook::API.new(this_auth.access_token)
       albums = @graph.get_object("me/albums")
       album_ids = get_album_ids(albums)
 
-      album_ids.each { |album_id|
-        photos = @graph.get_object("#{album_id}/photos") #10151114918023928
-        @max_likes, max_count = get_most_liked(photos, @max_likes)
-
+      begin
+        album_ids.each { |album_id|
+          photos = @graph.get_object("#{album_id}/photos") #10151114918023928
+          @max_likes, max_count = get_most_liked(photos, @max_likes)
 =begin This is for quick testing
-        unless @max_likes['comments'].nil?
-          break unless @max_likes['comments']['data'].nil?
-        end
+          unless @max_likes['comments'].nil?
+            break unless @max_likes['comments']['data'].nil?
+          end
 =end
-      }
-    rescue => e
-      p e.message
-      raise e
+        }
+#          render :text => max.to_s
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @max_likes }
+        end
+      rescue => e
+        p e.message
+        raise e
+      end
+
+
     end
-#    render :text => max.to_s
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @max_likes }
-    end
+
   end
 
-  # GET /fb_albums/1
-  # GET /fb_albums/1.json
+# GET /fb_albums/1
+# GET /fb_albums/1.json
   def show
     @fb_album = FbAlbum.find(params[:id])
 
@@ -46,8 +56,8 @@ class FbAlbumsController < ApplicationController
     end
   end
 
-  # GET /fb_albums/new
-  # GET /fb_albums/new.json
+# GET /fb_albums/new
+# GET /fb_albums/new.json
   def new
     @fb_album = FbAlbum.new
 
@@ -57,13 +67,13 @@ class FbAlbumsController < ApplicationController
     end
   end
 
-  # GET /fb_albums/1/edit
+# GET /fb_albums/1/edit
   def edit
     @fb_album = FbAlbum.find(params[:id])
   end
 
-  # POST /fb_albums
-  # POST /fb_albums.json
+# POST /fb_albums
+# POST /fb_albums.json
   def create
     @fb_album = FbAlbum.new(params[:fb_album])
 
@@ -78,8 +88,8 @@ class FbAlbumsController < ApplicationController
     end
   end
 
-  # PUT /fb_albums/1
-  # PUT /fb_albums/1.json
+# PUT /fb_albums/1
+# PUT /fb_albums/1.json
   def update
     @fb_album = FbAlbum.find(params[:id])
 
@@ -94,8 +104,8 @@ class FbAlbumsController < ApplicationController
     end
   end
 
-  # DELETE /fb_albums/1
-  # DELETE /fb_albums/1.json
+# DELETE /fb_albums/1
+# DELETE /fb_albums/1.json
   def destroy
     @fb_album = FbAlbum.find(params[:id])
     @fb_album.destroy
@@ -105,4 +115,5 @@ class FbAlbumsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end
