@@ -20,12 +20,27 @@ module FogifyHelper
     def get_pics_info(graph_fql, album_id, limit_count)
       return nil if graph_fql.nil? || album_id.nil? || limit_count.nil?
       # SELECT object_id, caption, src, src_big FROM photo WHERE album_object_id = '10151261394143928' LIMIT 0,12
+      # limit count in the query is always the number of images in the album
       query_string = <<-eos
           select object_id, caption, link, src, src_big, src_big_height, src_big_width
           FROM photo WHERE album_object_id = '#{album_id}' LIMIT 0,#{limit_count}
       eos
       photos =  graph_fql.fql_query(query_string)
 
+    end
+
+    def get_photo_with_max_likes(graph_fql)
+      return nil if graph_fql.nil?
+      this_user = 'me()'
+      max_album_count  = '1000' # theoretical limit !
+
+      query_string = <<-eos
+        select object_id, album_object_id, like_info from photo  where  (like_info.like_count > 0) AND
+        album_object_id IN (select object_id  from album where owner= #{this_user} LIMIT 0, #{max_album_count})
+        ORDER BY like_info.like_count DESC LIMIT 0,1
+      eos
+
+      photo = graph_fql.fql_query(query_string)
     end
 
     def get_album_ids (album_collections)
