@@ -2,14 +2,36 @@ class PicturesController < ApplicationController
   # GET /pictures
   # GET /pictures.json
   before_filter :authenticate_user!
-  def index
-    @pictures = Picture.all
+  include FogifyHelper::GraphHelper  #graph helper defined here
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pictures }
+  def index
+    user_auth = current_user.authentications
+    this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
+                                {:provider => 'facebook', :uemail => current_user.email}).first
+
+    if (this_auth.nil? || this_auth.access_token.nil?)
+      redirect_to '/auth/facebook'
+    else
+      @graph = Koala::Facebook::API.new(this_auth.access_token)
+      begin
+        photo_info = get_photo_with_max_likes(@graph)
+        unless photo_info.nil?
+          photo_id = photo_info[0]['object_id']
+          #go graph route to avoid multiple FQL for maintainability
+          @max_likes = @graph.get_object("#{photo_id}")
+        end
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render json: @max_likes }
+        end
+      rescue => e
+        # p e.to_s
+        @error_flag = true
+      end
     end
+
   end
+
 
   # GET /pictures/1
   # GET /pictures/1.json
@@ -22,63 +44,4 @@ class PicturesController < ApplicationController
     end
   end
 
-  # GET /pictures/new
-  # GET /pictures/new.json
-  def new
-    @picture = Picture.new(:album_id => params[:album_id])
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @picture }
-    end
-  end
-
-  # GET /pictures/1/edit
-  def edit
-    @picture = Picture.find(params[:id])
-  end
-
-  # POST /pictures
-  # POST /pictures.json
-  def create
-    @picture = Picture.new(params[:picture])
-
-    respond_to do |format|
-      if @picture.save
-      	flash[:notice] = "Image successfully pushed to amazon S3 bucket"
-     	format.html { redirect_to album_path(@picture.album_id) }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /pictures/1
-  # PUT /pictures/1.json
-  def update
-    @picture = Picture.find(params[:id])
-
-    respond_to do |format|
-      if @picture.update_attributes(params[:picture])
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /pictures/1
-  # DELETE /pictures/1.json
-  def destroy
-    @picture = Picture.find(params[:id])
-    @picture.destroy
-
-    respond_to do |format|
-      format.html { redirect_to pictures_url }
-      format.json { head :no_content }
-    end
-  end
 end

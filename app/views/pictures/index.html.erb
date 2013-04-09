@@ -1,27 +1,35 @@
-<h1>Listing pictures</h1>
+<h3>my fb photo with max likes ! </h3>
+<%
+   unless @max_likes['likes'].nil?
+     all_likes = @max_likes['likes']['data']
+     all_comments = @max_likes['comments'].nil? ? [] : @max_likes['comments']['data']
+     image_source_info = @max_likes['source']
+%>
+    <div class='row'>
+      <div class="span6">.
+        <p> <%=  image_tag(image_source_info) %> </p>
+      </div>
+      <div class="span3">
+        <p> <b> Likes </b></p>
+        <ul>
+          <% all_likes.each do |like_info| %>
+              <li> <p> <%=  like_info["name"] %></p> </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p> <h4> Comments </h4></p>
 
-<table>
-  <tr>
-    <th>Album</th>
-    <th>Img name</th>
-    <th>Img comment</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @pictures.each do |picture| %>
-  <tr>
-    <td><%= picture.album_id %></td>
-    <td><%= picture.img_name %></td>
-    <td><%= picture.img_comment %></td>
-    <td><%= link_to 'Show', picture %></td>
-    <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
-    <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+        <% all_comments.each do |comment_info| %>
+            <p> <b> <%=  comment_info['from']['name'] %>: </b>
+              <%= comment_info['message'] %></p>
+        <% end %>
+      </div>
+      <br/>
+    </div>
+<% else %>
+    <div class="alert"> Unable to locate a photo with maximum likes ! </div>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Picture', new_picture_path %>
