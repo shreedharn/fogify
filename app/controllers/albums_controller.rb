@@ -17,8 +17,7 @@ class AlbumsController < ApplicationController
       @graph = Koala::Facebook::API.new(this_auth.access_token)
       #@albums = @graph.get_object("me/albums")
       begin
-      album_info = get_album_with_max_likes(@graph)
-      @photos =   get_pics_info(@graph,album_info['object_id'], album_info['photo_count'])
+      @photos =   get_photos_in_max_likes_album(@graph)
 
       respond_to do |format|
         format.html # index.html.erb

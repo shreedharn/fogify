@@ -2,6 +2,6 @@ public/uploads
 log/
 tmp/
 .idea/
-setaws.bat
 config/application.yml
+db/development.sqlite3
 
