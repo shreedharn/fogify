@@ -1,13 +1,14 @@
-<h3>my fb photo with max likes ! </h3>
+<h3>facebook photo with max likes ! </h3>
 <%
-   unless @max_likes['likes'].nil?
+   unless @maxlikes.nil? && @max_likes['likes'].nil?
      all_likes = @max_likes['likes']['data']
-     all_comments = @max_likes['comments'].nil? ? [] : @max_likes['comments']['data']
-     image_source_info = @max_likes['source']
-%>
+     all_comments = (@max_likes['comments'].nil?) ? [] : @max_likes['comments']['data']
+#     image_source_info = @max_likes['source']
+ %>
     <div class='row'>
       <div class="span6">.
-        <p> <%=  image_tag(image_source_info) %> </p>
+        <p>  <%=   link_to(image_tag(@max_likes['source']),@max_likes['link'], nil) %> </p>
+
       </div>
       <div class="span3">
         <p> <b> Likes </b></p>
@@ -17,17 +18,6 @@
           <% end %>
         </ul>
       </div>
-    </div>
-    <div class="row">
-      <div class="span8">
-        <p> <h4> Comments </h4></p>
-
-        <% all_comments.each do |comment_info| %>
-            <p> <b> <%=  comment_info['from']['name'] %>: </b>
-              <%= comment_info['message'] %></p>
-        <% end %>
-      </div>
-      <br/>
     </div>
 <% else %>
     <div class="alert"> Unable to locate a photo with maximum likes ! </div>

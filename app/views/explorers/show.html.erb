@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Explorer:</b>
+  <%= @explorer.explorer_id %>
+</p>
+
+<p>
+  <b>Friend:</b>
+  <%= @explorer.friend_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_explorer_path(@explorer) %> |
+<%= link_to 'Back', explorers_path %>

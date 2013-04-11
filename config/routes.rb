@@ -1,4 +1,5 @@
 Shreefogify::Application.routes.draw do
+  resources :explorers, :only => [:new, :create]
   resources :authentications, :only => [:index, :create]
   resources :albums, :only => [:index]
   resources :fb_albums, :only => [:index]
