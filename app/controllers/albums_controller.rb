@@ -15,9 +15,12 @@ class AlbumsController < ApplicationController
       redirect_to '/auth/facebook'
     else
       @graph = Koala::Facebook::API.new(this_auth.access_token)
-      #@albums = @graph.get_object("me/albums")
+      @profile  = @graph.get_object("me")
+
+
       begin
-      @photos =   get_photos_in_max_likes_album(@graph)
+        explorer = Explorer.find_by_explorer_id(@profile['id'])
+        @photos =   get_photos_in_max_likes_album(@graph,explorer.friend_id)
 
       respond_to do |format|
         format.html # index.html.erb
