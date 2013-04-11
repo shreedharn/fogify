@@ -1,11 +1,27 @@
 module FogifyHelper
   module GraphHelper
 
+    def get_friends_of_me(graph_fql,graph_user)
+      return nil if graph_fql.nil?
+      if (graph_user.nil?)
+        this_user = 'me()'
+      else
+        this_user = graph_user
+      end
+      query_string = <<-eos
+        select uid, name from user where uid IN (select uid2 from friend where uid1=#{this_user})
+      eos
+      friends = graph_fql.fql_query(query_string)
+    end
     #operates on facebook fql.
     #no vanilla object just use the json as it is
-    def get_photos_in_max_likes_album(graph_fql)
+    def get_photos_in_max_likes_album(graph_fql, graph_user)
       return nil if graph_fql.nil?
-      this_user = 'me()'
+      if graph_user.nil?
+        this_user = 'me()'
+      else
+        this_user = graph_user
+      end
       query_string = <<-eos
           select object_id, caption, link, src, src_big, src_big_height, src_big_width
           FROM photo WHERE album_object_id IN
@@ -16,10 +32,13 @@ module FogifyHelper
 
     end
 
-    def get_photo_with_max_likes(graph_fql)
+    def get_photo_with_max_likes(graph_fql,graph_user)
       return nil if graph_fql.nil?
-      this_user =  'me()'
-
+      if graph_user.nil?
+        this_user = 'me()'
+      else
+        this_user = graph_user
+      end
       query_string = <<-eos
         select object_id, album_object_id, like_info from photo  where  owner= #{this_user}
         ORDER BY like_info.like_count DESC LIMIT 0,1

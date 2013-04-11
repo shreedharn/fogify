@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130227035127) do
+ActiveRecord::Schema.define(:version => 20130410005303) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(:version => 20130227035127) do
     t.text     "access_token"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "explorers", :force => true do |t|
+    t.string   "explorer_id"
+    t.string   "friend_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "pictures", :force => true do |t|

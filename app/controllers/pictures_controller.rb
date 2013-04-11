@@ -13,8 +13,10 @@ class PicturesController < ApplicationController
       redirect_to '/auth/facebook'
     else
       @graph = Koala::Facebook::API.new(this_auth.access_token)
+      @profile  = @graph.get_object("me")
       begin
-        photo_info = get_photo_with_max_likes(@graph)
+        explorer = Explorer.find_by_explorer_id(@profile['id'])
+        photo_info = get_photo_with_max_likes(@graph,explorer.friend_id)
         unless photo_info.nil?
           photo_id = photo_info[0]['object_id']
           #go graph route to avoid multiple FQL for maintainability
