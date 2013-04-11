@@ -75,14 +75,16 @@ class ExplorersController < ApplicationController
       else
         @explorer.friend_id = nil
       end
-      if match_friend.nil?
-        friend_name = 'default'
+      notice_info = nil
+      if match_friend.empty?
+        notice_info = 'Unable to locate friend. Switching to default user mode !'
       else
         friend_name = match_friend['name']
+        notice_info = "Exploring #{friend_name}"
       end
       respond_to do |format|
         if @explorer.save
-          format.html { redirect_to albums_path, notice: "Mode switched to #{friend_name}" }
+          format.html { redirect_to albums_path, notice: notice_info }
           format.json { render json: @explorer, status: :created, location: @explorer }
         else
           format.html { render action: "new" }

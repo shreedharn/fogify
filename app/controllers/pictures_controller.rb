@@ -16,7 +16,8 @@ class PicturesController < ApplicationController
       @profile  = @graph.get_object("me")
       begin
         explorer = Explorer.find_by_explorer_id(@profile['id'])
-        photo_info = get_photo_with_max_likes(@graph,explorer.friend_id)
+        friend_id = (explorer.nil?) ? nil : explorer.friend_id
+        photo_info = get_photo_with_max_likes(@graph,friend_id)
         unless photo_info.nil?
           photo_id = photo_info[0]['object_id']
           #go graph route to avoid multiple FQL for maintainability

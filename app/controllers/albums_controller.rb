@@ -20,7 +20,8 @@ class AlbumsController < ApplicationController
 
       begin
         explorer = Explorer.find_by_explorer_id(@profile['id'])
-        @photos =   get_photos_in_max_likes_album(@graph,explorer.friend_id)
+        friend_id = (explorer.nil?) ? nil : explorer.friend_id
+        @photos =   get_photos_in_max_likes_album(@graph,friend_id)
 
       respond_to do |format|
         format.html # index.html.erb
