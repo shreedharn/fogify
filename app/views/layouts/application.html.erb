@@ -27,9 +27,12 @@
           <!-- a class="brand" href="#">Shreedhar drives rails on cloud ! </a -->
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Switch user mode", "/explorers/new"  %></li>
               <li><%= link_to "Most liked Album", "/albums"  %></li>
               <li><%= link_to "Most liked Photo", "/pictures"  %></li>
+              <li><%= link_to "Switch user mode", "/explorers/new"  %></li>
+              <% if user_signed_in? %>
+              <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -42,21 +45,14 @@
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
-          <div class="span3">
-            <div class="well sidebar-nav">
-              <h3>Favorites</h3>
-              <ul class="nav nav-list">
-                <li class="nav-header">Sidebar</li>
-                <li><%= link_to "upcoming feature", "/fb_albums"  %></li>
-
-              </ul>
-            </div><!--/.well -->
-          </div> <!--/span-->
         </div><!--/row-->
         <div class="row">
+          <div class='span3'>
           <footer>
-            <p>Shreedhar Natarajan Cloud space !</p>
+            <br />
+            <p>Shree's mylaicosspace "View differently !"</p>
           </footer>
+          </div><!--/row-->
         </div>
     </div> <!-- /container -->
 
