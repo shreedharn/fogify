@@ -76,7 +76,7 @@ module Shreefogify
     config.assets.initialize_on_precompile = false
 
     # Precompile additional assets. Defaults to [application.js, application.css, non-JS/CSS]
-    config.assets.precompile += ['explorers.css.scss']
+    config.assets.precompile += ['explorers.css']
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
