@@ -1,17 +1,15 @@
-Alright we are here to experiment gem that work with cloud services. Example: Carrierwave
+Fogify has following features:
 
 <br>
-<u> Backlog: </u>
-- Fix routes
-- Fetch album from facebook and display
-- Carrierwave or fog ?
+<u> Features: </u>
+- View album with max likes
+- View Photo with max likes
+- View album and photo of different users
+- Autocomplete friend name suggestion
+- Incorporated redis for storing friend name
 
-<br>
-
-<u> Completed </u>
-Use Omniauth for facebook authentication
-Use Koala integration for facebook integration
-Use Twitter Bootstrap
-<i> Heroku Initial deployment verified     </i>
+TBD:
+- Uploading an album to cloud storage
+- Introduce gem such Sidekiq for background fetching
 
 <br>

@@ -5,12 +5,42 @@ class ExplorersController < ApplicationController
   # GET /explorers
   # GET /explorers.json
   def index
-    @explorers = Explorer.all
+    # checking redis
+    if @mylist.nil?
+      @mylist = []
+      if ($redis.llen('me:name') == 0)
+        user_auth = current_user.authentications
+        this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
+                                    {:provider => 'facebook', :uemail => current_user.email}).first
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @explorers }
+        @graph = Koala::Facebook::API.new(this_auth.access_token)
+        friends_list = get_friends_of_me(@graph, nil)
+        friends_list.each do |friendinfo|
+            $redis.lpush('me:name',friendinfo['name'].downcase)
+            $redis.lpush('me:id',friendinfo['uid'])
+
+            @mylist << friendinfo['name'].downcase
+        end
+        $redis.expire('me:name',60 * 10)
+        $redis.expire('me:id',60 * 10)
+      end
     end
+
+    # testing redis
+    if (@mylist.nil? || @mylist.empty?)
+      @mylist = []
+      i, len = 0, $redis.llen('me:name')
+      while i < len
+        @mylist << $redis.lindex('me:name',i)
+        i+=1
+      end
+    end
+
+    new_list= []
+    unless params[:term].nil?
+      new_list = @mylist.select {|x|  ( x.index(params[:term].downcase) == 0)} unless @mylist.nil?
+    end
+    render json: new_list
   end
 
   # GET /explorers/1
@@ -75,6 +105,7 @@ class ExplorersController < ApplicationController
       else
         @explorer.friend_id = nil
       end
+
       notice_info = nil
       if match_friend.empty?
         notice_info = 'Unable to locate friend. Switching to default user mode !'

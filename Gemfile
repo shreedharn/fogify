@@ -29,19 +29,16 @@ end
 
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
-gem 'rmagick'
-
-gem 'carrierwave'
 gem 'node'
 gem 'jquery-rails'
 gem 'devise', '~> 2.2.3'
-gem 'fog'
 gem 'omniauth', '~> 1.1.1'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
 gem 'koala', '~> 1.6.0'
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem "less-rails", '~> 2.3.2' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails", '~> 2.2.6'
+gem 'redis', '~> 3.0.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
