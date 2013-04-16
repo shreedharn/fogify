@@ -13,11 +13,11 @@ end
 fpath = File.expand_path('../application.yml', __FILE__)
 
 if File.exist?(fpath)
-	config = YAML.load(File.read(fpath))
-	config.merge! config.fetch(Rails.env, {})
-	config.each do |key, value|
-	  ENV[key] = value unless value.kind_of? Hash
-	end
+  config = YAML.load(File.read(fpath))
+  config.merge! config.fetch(Rails.env, {})
+  config.each do |key, value|
+    ENV[key] = value unless value.kind_of? Hash
+  end
 end
 
 module Shreefogify
@@ -70,13 +70,16 @@ module Shreefogify
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-	
-	#devise related changes: On config/application.rb forcing your application to not access the DB
-	#or load models when precompiling your assets.
-	config.assets.initialize_on_precompile = false
-	
-  config.autoload_paths << "#{Rails.root}/lib"
-  config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+
+    #devise related changes: On config/application.rb forcing your application to not access the DB
+    #or load models when precompiling your assets.
+    config.assets.initialize_on_precompile = false
+
+    # Precompile additional assets. Defaults to [application.js, application.css, non-JS/CSS]
+    config.assets.precompile += ['explorers.css.scss']
+
+    config.autoload_paths << "#{Rails.root}/lib"
+    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
 
   end
 end
