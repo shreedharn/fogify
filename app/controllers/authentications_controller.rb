@@ -1,4 +1,4 @@
-class AuthenticationsController < ApplicationController
+class AuthenticationsController < FbBaseController
   before_filter :authenticate_user!, :except => [:create]
 
   def index

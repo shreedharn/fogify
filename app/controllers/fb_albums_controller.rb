@@ -1,4 +1,4 @@
-class FbAlbumsController < ApplicationController
+class FbAlbumsController < FbBaseController
   # GET /fb_albums
   # GET /fb_albums.json
   include FogifyHelper::GraphHelper

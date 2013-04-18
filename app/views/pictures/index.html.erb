@@ -1,9 +1,7 @@
 <h3>facebook photo with max likes ! </h3>
 <%
-   unless @max_likes.nil?
+   unless @max_likes.nil? || @max_likes['likes'].nil?
      all_likes = @max_likes['likes']['data']
-     all_comments = (@max_likes['comments'].nil?) ? [] : @max_likes['comments']['data']
-#     image_source_info = @max_likes['source']
  %>
     <div class='row'>
       <div class="span6">.

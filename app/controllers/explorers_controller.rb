@@ -1,46 +1,42 @@
-class ExplorersController < ApplicationController
+class ExplorersController < FbBaseController
   include FogifyHelper::GraphHelper #graph helper defined here
   before_filter :authenticate_user!
 
+  def redis_initialize_friends(user_id)
+      friends_list = get_friends_of_me(@graph, nil)
+      unless friends_list.nil?
+        friends_list.each do |friendinfo|
+          $redis.lpush("#{user_id}:name", friendinfo['name'])
+          $redis.lpush("#{user_id}:id", friendinfo['uid'])
+        end
+      end
+      $redis.expire("#{user_id}:name", 60 * 10)
+      $redis.expire("#{user_id}:id", 60 * 10)
+  end
   # GET /explorers
   # GET /explorers.json
   def index
     # checking redis
-    if @mylist.nil?
-      @mylist = []
-      if ($redis.llen('me:name') == 0)
-        user_auth = current_user.authentications
-        this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
-                                    {:provider => 'facebook', :uemail => current_user.email}).first
 
-        @graph = Koala::Facebook::API.new(this_auth.access_token)
-        friends_list = get_friends_of_me(@graph, nil)
-        friends_list.each do |friendinfo|
-            $redis.lpush('me:name',friendinfo['name'].downcase)
-            $redis.lpush('me:id',friendinfo['uid'])
-
-            @mylist << friendinfo['name'].downcase
+    @fb_id, access_token =  get_fb_info()
+    @graph = get_graph(access_token)
+    if (@graph.nil?)
+      redirect_to '/auth/facebook'
+    else
+      redis_initialize_friends(@fb_id) if ($redis.llen("#{@fb_id}:name") == 0)
+      new_list= []
+      begin
+        unless params[:term].nil?
+          $redis.llen("#{@fb_id}:name").times do |i|
+            x = $redis.lindex("#{@fb_id}:name", i)
+            new_list << x if x.downcase.starts_with?(params[:term].downcase)
+          end
         end
-        $redis.expire('me:name',60 * 10)
-        $redis.expire('me:id',60 * 10)
+      rescue
+        new_list = []
       end
+      render json: new_list
     end
-
-    # testing redis
-    if (@mylist.nil? || @mylist.empty?)
-      @mylist = []
-      i, len = 0, $redis.llen('me:name')
-      while i < len
-        @mylist << $redis.lindex('me:name',i)
-        i+=1
-      end
-    end
-
-    new_list= []
-    unless params[:term].nil?
-      new_list = @mylist.select {|x|  ( x.index(params[:term].downcase) == 0)} unless @mylist.nil?
-    end
-    render json: new_list
   end
 
   # GET /explorers/1
@@ -74,17 +70,12 @@ class ExplorersController < ApplicationController
   # POST /explorers.json
   def create
     explorer_profile = nil
-    user_auth = current_user.authentications
-    this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
-                                {:provider => 'facebook', :uemail => current_user.email}).first
-
-    if (this_auth.nil? || this_auth.access_token.nil?)
+    @fb_id, access_token =  get_fb_info()
+    @graph = get_graph(access_token)
+    if @graph.nil?
       redirect_to '/auth/facebook'
     else
-      @graph = Koala::Facebook::API.new(this_auth.access_token)
-      explorer_profile = @graph.get_object("me")
-
-      @explorer = Explorer.find_or_create_by_explorer_id(explorer_profile['id'])
+      @explorer = Explorer.find_or_create_by_explorer_id(@fb_id)
       friend_name = params['explorer']['friend_id']
       @explorer.friend_id= nil
       match_friend = {}
@@ -92,7 +83,7 @@ class ExplorersController < ApplicationController
         friend_name = friend_name.downcase
         friends_list = get_friends_of_me(@graph, nil)
         friends_list.try(:each) do |friend_info|
-           unless (friend_info['name'] = friend_info['name'].downcase).index(friend_name).nil?
+          unless (friend_info['name'] = friend_info['name'].downcase).index(friend_name).nil?
             if @explorer.friend_id.nil?
               @explorer.friend_id = friend_info['uid']
               match_friend = friend_info

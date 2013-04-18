@@ -1,18 +1,16 @@
-class PicturesController < ApplicationController
+class PicturesController < FbBaseController
   # GET /pictures
   # GET /pictures.json
   before_filter :authenticate_user!
   include FogifyHelper::GraphHelper  #graph helper defined here
 
   def index
-    user_auth = current_user.authentications
-    this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
-                                {:provider => 'facebook', :uemail => current_user.email}).first
 
-    if (this_auth.nil? || this_auth.access_token.nil?)
+    @fb_id, access_token =  get_fb_info()
+    @graph = get_graph(access_token)
+    if @graph.nil?
       redirect_to '/auth/facebook'
     else
-      @graph = Koala::Facebook::API.new(this_auth.access_token)
       @profile  = @graph.get_object("me")
       begin
         explorer = Explorer.find_by_explorer_id(@profile['id'])
@@ -28,7 +26,6 @@ class PicturesController < ApplicationController
           format.json { render json: @max_likes }
         end
       rescue => e
-        # p e.to_s
         @error_flag = true
       end
     end

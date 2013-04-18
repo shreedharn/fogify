@@ -1,6 +1,11 @@
 module FogifyHelper
   module GraphHelper
 
+    def get_graph(access_token)
+      return nil if access_token.nil?
+      graph = Koala::Facebook::API.new(access_token)
+    end
+
     def get_friends_of_me(graph_fql,graph_user)
       return nil if graph_fql.nil?
       if (graph_user.nil?)
@@ -13,6 +18,7 @@ module FogifyHelper
       eos
       friends = graph_fql.fql_query(query_string)
     end
+
     #operates on facebook fql.
     #no vanilla object just use the json as it is
     def get_photos_in_max_likes_album(graph_fql, graph_user)
