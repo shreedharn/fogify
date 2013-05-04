@@ -3,4 +3,31 @@
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
+#=begin
+# code required to enable debugging during development when using thin with ssl
+require 'thin'
+module Thin
+  module Backends
+    TcpServer.class_eval do
+      def initialize_with_SSL(host, port)
+        if Rails.env.development?
+          @ssl_options = {
+              :private_key_file => File.expand_path("../../../../thinsslkey/server.key", __FILE__),
+              :cert_chain_file  => File.expand_path("../../../../thinsslkey/server.crt", __FILE__),
+              :verify_peer => nil
+          }
+        end
+
+        initialize_original(host, port)
+
+        @ssl = true if Rails.env.development?
+
+      end
+
+       alias_method :initialize_original, :initialize
+       alias_method :initialize, :initialize_with_SSL
+    end
+  end
+end
+#=end
 require 'rails/commands'

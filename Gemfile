@@ -39,6 +39,8 @@ gem 'koala', '~> 1.6.0'
 gem "less-rails", '~> 2.3.2' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails", '~> 2.2.6'
 gem 'redis', '~> 3.0.3'
+gem 'sidekiq', '~> 2.10.1'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
