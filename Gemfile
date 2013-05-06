@@ -1,13 +1,9 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby "1.9.3" #tell heroku to use the specified ruby version
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'pg'
-gem 'thin'
-
+gem 'pg', '~> 0.14.1'
+gem 'redis', '~> 3.0.3'
 
 group :development, :test do
   gem 'sqlite3'
@@ -26,20 +22,23 @@ group :assets do
 end
 
 
-
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'node'
-gem 'jquery-rails'
+
+gem 'thin', '~> 1.5.0'
+gem "less-rails", '~> 2.3.2' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'jquery-rails', '~> 2.2.1'
+gem 'twitter-bootstrap-rails', '~> 2.2.6'
+gem 'backbone-on-rails', '~> 1.0.0.0'
+
 gem 'devise', '~> 2.2.3'
 gem 'omniauth', '~> 1.1.1'
 gem 'omniauth-facebook', '~> 1.4.1'
-gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+gem 'omniauth-openid',   '~> 1.0'
 gem 'koala', '~> 1.6.0'
-gem "less-rails", '~> 2.3.2' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails", '~> 2.2.6'
-gem 'redis', '~> 3.0.3'
 gem 'sidekiq', '~> 2.10.1'
+gem 'dropbox-sdk', '~> 1.5.1'
 
 
 # To use ActiveModel has_secure_password
@@ -48,11 +47,6 @@ gem 'sidekiq', '~> 2.10.1'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'debugger'
