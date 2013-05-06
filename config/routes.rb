@@ -1,4 +1,5 @@
 Shreefogify::Application.routes.draw do
+  resources :dropbox_access, :only => [:create, :index]
   resources :explorers, :only => [:new, :create, :index]
   resources :authentications, :only => [:index, :create]
   resources :albums, :only => [:index]
