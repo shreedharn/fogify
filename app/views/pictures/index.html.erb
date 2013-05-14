@@ -5,7 +5,7 @@
  %>
     <div class='row'>
       <div class="span6">.
-        <p>  <%=   link_to(image_tag(@max_likes['source']),@max_likes['link'], nil) %> </p>
+        <p>  <%=   link_to(image_tag(@max_likes['source']),@max_likes['link'], options = {"name" => "uploadlinks"}) %> </p>
 
       </div>
       <div class="span3">
@@ -20,4 +20,10 @@
 <% else %>
     <div class="alert"> Unable to locate a photo with maximum likes ! </div>
 <% end %>
-
+<form>
+<div id="app-ui" class="field">
+  <p> Sample text </p>
+  <input type="button" value="save to dropbox" onclick="window.savedrop()"/>
+  <input type="button" id="signout-button"  value="logout of dropbox" />
+</div>
+</form>
