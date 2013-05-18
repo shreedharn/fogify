@@ -38,7 +38,7 @@ class DropboxSave
   while i < window.linkArray.length
     @pos = window.linkArray[i].indexOf(":")
     @photo_url = window.linkArray[i].substr(@pos + 3)
-    @photo_url = "http://localhost:3100?src="+@photo_url
+    @photo_url = "http://mylaicosproxy.herokuapp.com/?src="+@photo_url
     @xhreq[i] = new XMLHttpRequest()
     @xhreq[i].open('GET',@photo_url,true)
    # @xhreq[i].open('GET',window.linkArray[i],true)
