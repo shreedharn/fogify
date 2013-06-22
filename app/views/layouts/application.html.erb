@@ -29,7 +29,7 @@
             <ul class="nav">
               <li><%= link_to "Most liked Album", "/albums"  %></li>
               <li><%= link_to "Most liked Photo", "/pictures"  %></li>
-              <li><%= link_to "Switch user mode", "/explorers/new"  %></li>
+              <li><%= link_to "Friends mode", "/explorers/new"  %></li>
               <% if user_signed_in? %>
               <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
               <% end %>
@@ -47,15 +47,13 @@
           </div>
         </div><!--/row-->
         <div class="row">
-          <div class='span3'>
+          <div class='span9'>
           <footer>
             <br />
-            <p>Shree's mylaicosspace "View differently !"</p>
           </footer>
           </div><!--/row-->
         </div>
     </div> <!-- /container -->
-
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
