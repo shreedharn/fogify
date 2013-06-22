@@ -29,7 +29,7 @@ gem 'node'
 gem 'thin', '~> 1.5.0'
 gem "less-rails", '~> 2.3.2' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'jquery-rails', '~> 2.2.1'
-gem 'twitter-bootstrap-rails', '-> 2.2.6'
+gem 'twitter-bootstrap-rails', '2.2.6'
 gem 'backbone-on-rails', '~> 1.0.0.0'
 
 gem 'devise', '~> 2.2.3'
