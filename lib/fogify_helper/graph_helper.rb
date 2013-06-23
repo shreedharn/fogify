@@ -38,7 +38,7 @@ module FogifyHelper
 
     end
 
-    def get_photo_with_max_likes(graph_fql,graph_user)
+    def get_photo_with_max_likes(graph_fql,graph_user,time_from,time_to)
       return nil if graph_fql.nil?
       if graph_user.nil?
         this_user = 'me()'
@@ -47,6 +47,7 @@ module FogifyHelper
       end
       query_string = <<-eos
         select object_id, album_object_id, like_info from photo  where  owner= #{this_user}
+        AND created > #{time_from} AND created < #{time_to}
         ORDER BY like_info.like_count DESC LIMIT 0,1
       eos
 

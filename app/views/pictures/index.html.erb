@@ -1,4 +1,36 @@
-<h3>facebook photo with max likes ! </h3>
+<%= stylesheet_link_tag "pictures" %>
+
+<h3>Photos with most likes ! </h3>
+<%= form_tag("/pictures", :method => "get") do %>
+    <div class= "row">
+      <div class="span9 offset0">
+      <p class="text-info">
+        Date filter is an experimental item on this page that allows to view most liked photos in a specific date range.
+        Currently input needs to be in the format of mm/dd/yyyy. On input format error, "from" defaults to 0 and "to"
+        defaults to epoc (beginning of time).
+     </div>
+      </div>
+    <div class= "row">
+      <div class="span2">
+        <p> from: </p>
+      </div>
+      <div class="span2">
+        <p> to: </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">
+        <input name="from" type="input" class="span2" placeholder="mm/dd/yyyy"/>
+      </div>
+      <div class="span2">
+        <input name ="to" type="input" class="span2" placeholder="mm/dd/yyyy" />
+      </div>
+      <div class="span3">
+        <%= submit_tag("Apply date filter",:class => "btn span2") %>
+      </div>
+    </div>
+<% end %>
+
 <%
    unless @max_likes.nil? || @max_likes['likes'].nil?
      all_likes = @max_likes['likes']['data']
@@ -7,14 +39,6 @@
       <div class="span6">.
         <p>  <%=   link_to(image_tag(@max_likes['source']),@max_likes['link'], nil) %> </p>
 
-      </div>
-      <div class="span3">
-        <p> <b> Likes </b></p>
-        <ul>
-          <% all_likes.each do |like_info| %>
-              <li> <p> <%=  like_info["name"] %></p> </li>
-          <% end %>
-        </ul>
       </div>
     </div>
 <% else %>
