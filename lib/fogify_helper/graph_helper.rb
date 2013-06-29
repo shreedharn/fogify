@@ -54,6 +54,40 @@ module FogifyHelper
       photo = graph_fql.fql_query(query_string)
     end
 
+    def get_basic_users_info(graph_fql, users)
+      return if nil if graph_fql.nil?
+      query_strings = {}
+
+      for i in 0..(users.length - 1)
+        query_strings[users[i]] = <<-eos
+          select name, pic_square from user where uid = #{users[i]} LIMIT 1000
+          eos
+      end
+      graph_fql.fql_multiquery(query_strings)
+
+    end
+
+    def get_top_friends_likes(graph_fql, graph_user)
+      return if nil if graph_fql.nil?
+      if graph_user.nil?
+        this_user = 'me()'
+      else
+        this_user = graph_user
+      end
+      query_string = <<-eos
+        SELECT user_id FROM like WHERE user_id != #{this_user} AND object_id IN
+        (select object_id from photo where owner = #{this_user} AND like_info.like_count > 0 LIMIT 2000)
+      eos
+=begin
+      query_string = <<-eos
+        SELECT user_id FROM like WHERE user_id != #{this_user} AND object_id IN
+        (select status_id from status where uid = #{this_user} AND like_info.like_count > 0 LIMIT 2000)
+      eos
+=end
+      result = graph_fql.fql_query(query_string)
+
+    end
+
     def get_album_ids (album_collections)
       album_ids = []
       return nil if album_collections.nil?

@@ -1,0 +1,27 @@
+<h3> Active friends on your profile </h3>
+
+<div class="row">
+  <p class="text-info offset1">
+    Feature in development. Lists friends by number of photo likes
+  </p>
+</div>
+
+<table class="table  table-striped">
+<%
+   @hashAsArrays = [] if ((@hashAsArrays.nil?) || (@hashAsArrays.length == 0))
+   i = 0
+   @hashAsArrays.each do |key,value|
+        user_hash = @names[key][0]
+        break if ((i+=1) >= 6) # magic 6
+%>
+  <tr>
+    <td> <%= image_tag(user_hash['pic_square']) %> </td>
+    <td> <%= user_hash['name'] %> </td>
+    <td> <%= value %> </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

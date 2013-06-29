@@ -29,6 +29,7 @@
             <ul class="nav">
               <li><%= link_to "Most liked Album", "/albums"  %></li>
               <li><%= link_to "Most liked Photo", "/pictures"  %></li>
+              <li><%= link_to "Friends likes", "/friends"  %></li>
               <li><%= link_to "Friends mode", "/explorers/new"  %></li>
               <% if user_signed_in? %>
               <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
