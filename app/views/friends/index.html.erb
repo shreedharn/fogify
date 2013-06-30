@@ -1,14 +1,14 @@
-<h3> Active friends on your profile </h3>
+<% if ((@hashAsArrays.nil?) || (@hashAsArrays.length == 0)) %>
+<div class="row alert alert-block">
+  <p class="text-info offset0">
+    Unable to list friends by like count  !
 
-<div class="row">
-  <p class="text-info offset1">
-    Feature in development. Lists friends by number of photo likes
   </p>
 </div>
-
+<% else %>
+<h3> Top friends by Photo like count </h3>
 <table class="table  table-striped">
 <%
-   @hashAsArrays = [] if ((@hashAsArrays.nil?) || (@hashAsArrays.length == 0))
    i = 0
    @hashAsArrays.each do |key,value|
         user_hash = @names[key][0]
@@ -21,7 +21,7 @@
   </tr>
 <% end %>
 </table>
-
+<%end %>
 <br />
 
 

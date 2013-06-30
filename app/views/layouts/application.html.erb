@@ -16,7 +16,7 @@
   </head>
   <body>
 
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
@@ -27,10 +27,10 @@
           <!-- a class="brand" href="#">Shreedhar drives rails on cloud ! </a -->
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Most liked Album", "/albums"  %></li>
-              <li><%= link_to "Most liked Photo", "/pictures"  %></li>
-              <li><%= link_to "Friends likes", "/friends"  %></li>
-              <li><%= link_to "Friends mode", "/explorers/new"  %></li>
+              <li data-toggle="tool-tip" title="Shows most liked fb album"><%= link_to "Most liked Album", "/albums"  %></li>
+              <li data-toggle="tool-tip" title="Shows most liked photo in your fb album"><%= link_to "Most liked Photo", "/pictures"  %></li>
+              <li data-toggle="tool-tip" title="Shows friends by photo like count"><%= link_to "Friends likes", "/friends"  %></li>
+              <li data-toggle="tool-tip" title="Explore your friends likes !"><%= link_to "Friends mode", "/explorers/new"  %></li>
               <% if user_signed_in? %>
               <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
               <% end %>
