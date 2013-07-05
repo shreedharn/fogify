@@ -4,8 +4,8 @@
     <h3> Welcome to Mylaicosspace  </h3>
     <p class="text-info">
       Back from a holiday or in between busy schedule, you dont need to get lost into cluttered messages on your wall.
-      With Mylaicosspace you can filter your message, photos and albums with intuitive filters. With friends mode you can
-      apply the same filter to your friends facebook information.
+      With Mylaicosspace you can filter your message, photos and albums with intuitive filters. With Mylaiccose you view
+      your social space differently and connect with your friends even more effectively !
 
     </p>
 
@@ -28,6 +28,11 @@
 -->
 
 <!-- %= render "devise/shared/links" % -->
-<div> <%=link_to(image_tag('/images/facebook_32.png'), '/auth/facebook') %>
+<div>
+    <a href='https://fogify.herokuapp.com/terms.html'>Click here for Terms and Conditions </a>
+  <p> You consent to have read and accepted the <a href='https://fogify.herokuapp.com/terms.html'>terms and conditions</a> of the website before clicking the below facebook login image.
+  </p>
+
+  <%=link_to(image_tag('/images/facebook_32.png'), '/auth/facebook') %>
 </div>
 
