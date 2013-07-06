@@ -1,23 +1,25 @@
 <section id="deviseauth">
-  <h3>Welcome to mylaicosspace </h3>
+  <h3>Welcome to Mylaicosspace </h3>
 
   <div id="currservices">
 
-    <div class="alert alert-info">
-      Account Information:
-    </div>
-
-    <% @authentications.each do |authentication| %>
+  <% @authentications.each do |authentication| %>
         <div class="services_used">
           <!-- %= image_tag "#{service.provider}_64.png", :size => "64x64" % -->
           <div class = "user">
-            <div class="line1">Name: <%= authentication.uname %> (ID: <%= authentication.uid %>)</div>
-            <div class="line2">Email: <%= authentication.uemail != '' ? authentication.uemail : 'not set' %></div>
-            <div class="line3">
+            <p> Mylaicosspace in its current version, features following views<sup>(1)</sup> </p>
+            <ul class="list-style">
+              <li> Viewing the most liked album that you have uploaded </li>
+              <li> Viewing the most liked photo that you have uploaded </li>
+              <li> Displays top 5 friends by the photo like count </li>
+              <li> Friends mode - Friends view of the above feature </li>
+            </ul>
+             <p>
+               <b><sup>(1)</sup></b> Views are based on underlying permission settings of the users facebook account.<br/>
+             </p>
               <% @authentications.count == 1 ? @msg = 'Removing the last account linked might lock you out of your account if you do not know the email/password sign-in of your local account!' : @msg = '' %>
               <!-- %= link_to "Remove this service", service, :confirm => 'Are you sure you want to remove this authentication service? ' + @msg, :method => :delete, :class => "remove" % -->
             </div>
-          </div>
         </div>
     <% end %>
   </div>

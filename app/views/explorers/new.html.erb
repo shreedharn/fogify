@@ -1,16 +1,17 @@
 <%= stylesheet_link_tag "explorers" %>
-<h3>Switch user and explore !</h3>
+<h3>Switch to your friends view and start exploring !</h3>
 <div class="alert alert-info">
-  Enter a friend name to discover max likes of their facebook data <br/>
-  Leave it blank to  discover your own data (default mode)
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+  Enter a friend name to discover max likes of their facebook data.
+  Leave it blank to switch back to your account (default mode)
 </div>
 <%= form_for(@explorer) do |f| %>
 <div class="field">
-  <%= f.label 'Enter your friends name' %><br />
+  <%= f.label 'Start typing your friend name' %><br />
   <%= f.text_field :friend_id %>
 </div>
 <div class="actions">
-  <%= submit_tag "Explore", :disable_with => "Triggering explorer mode"  %>
+  <%= submit_tag "Explore", :disable_with => "Triggering friend's mode"  %>
   <!-- %= f.submit % -->
 </div>
 
