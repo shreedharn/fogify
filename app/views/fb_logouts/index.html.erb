@@ -1,0 +1,21 @@
+<h1>Listing fb_logouts</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fb_logouts.each do |fb_logout| %>
+  <tr>
+    <td><%= link_to 'Show', fb_logout %></td>
+    <td><%= link_to 'Edit', edit_fb_logout_path(fb_logout) %></td>
+    <td><%= link_to 'Destroy', fb_logout, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Fb logout', new_fb_logout_path %>
