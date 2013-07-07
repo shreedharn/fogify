@@ -11,10 +11,9 @@ class FriendsController < FbBaseController
     if @graph.nil?
       redirect_to '/auth/facebook'
     else
-      @profile  = @graph.get_object("me")
       friends = Hash.new
       begin
-          explorer = Explorer.find_by_explorer_id(@profile['id'])
+        explorer = Explorer.find_by_explorer_id(@fb_id)
         friend_id = (explorer.nil?) ? nil : explorer.friend_id
 
         top_friends = get_top_friends_likes(@graph,friend_id)

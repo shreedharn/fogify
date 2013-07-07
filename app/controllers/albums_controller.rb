@@ -12,9 +12,8 @@ class AlbumsController < FbBaseController
     if @graph.nil?
       redirect_to '/auth/facebook'
     else
-      @profile  = @graph.get_object("me")
       begin
-        explorer = Explorer.find_by_explorer_id(@profile['id'])
+        explorer = Explorer.find_by_explorer_id(@fb_id)
         friend_id = (explorer.nil?) ? nil : explorer.friend_id
         @photos =   get_photos_in_max_likes_album(@graph,friend_id)
 

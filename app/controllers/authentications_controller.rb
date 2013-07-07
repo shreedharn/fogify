@@ -49,8 +49,10 @@ class AuthenticationsController < FbBaseController
         if auth
           flash[:notice] = 'Signed in successfully via ' + provider.capitalize + '.'
           @graph = Koala::Facebook::API.new(access_token)
-          profile = @graph.get_object("me")
-          friends = @graph.get_connections("me", "friends")
+          auth.access_token = access_token
+          auth.save
+          #profile = @graph.get_object("me")
+          #friends = @graph.get_connections("me", "friends")
           sign_in_and_redirect(:user, auth.user)
         else
           # check if this user is already registered with this email address; get out if no email has been provided

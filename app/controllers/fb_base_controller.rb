@@ -6,4 +6,13 @@ class FbBaseController < ApplicationController
     return nil, nil if this_auth.nil?
     return this_auth.uid, this_auth.access_token
   end
+
+  def get_auth_rec()
+    user_auth = current_user.authentications
+    this_auth = user_auth.where("uemail = :uemail AND provider = :provider",
+                                {:provider => 'facebook', :uemail => current_user.email}).first
+    return nil if this_auth.nil?
+    return this_auth
+
+  end
 end

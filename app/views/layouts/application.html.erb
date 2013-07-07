@@ -32,7 +32,7 @@
               <li data-toggle="tool-tip" title="Shows friends by photo like count"><%= link_to "Friends likes", "/friends"  %></li>
               <li data-toggle="tool-tip" title="Explore your friends likes !"><%= link_to "Friends mode", "/explorers/new"  %></li>
               <% if user_signed_in? %>
-              <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+              <li> <%= link_to "Logout", "/fb_logouts" %> </li>
               <% end %>
             </ul>
           </div><!--/.nav-collapse -->

@@ -4,6 +4,7 @@ Shreefogify::Application.routes.draw do
   resources :albums, :only => [:index]
   resources :friends, :only => [:index]
   resources :pictures
+  resources :fb_logouts, :only => [:index]
 
   devise_for :users, :path => "auth", :path_names => { :sign_in => 'login', :sign_out => 'logout'  }
   match 'auth/:provider/callback' => 'authentications#create'

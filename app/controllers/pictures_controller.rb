@@ -14,9 +14,8 @@ class PicturesController < FbBaseController
     if @graph.nil?
       redirect_to '/auth/facebook'
     else
-      @profile  = @graph.get_object("me")
       begin
-        explorer = Explorer.find_by_explorer_id(@profile['id'])
+        explorer = Explorer.find_by_explorer_id(@fb_id)
         friend_id = (explorer.nil?) ? nil : explorer.friend_id
 
         from_dt = params['from']
