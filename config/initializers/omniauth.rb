@@ -4,8 +4,8 @@ OmniAuth.config.logger = Rails.logger
 
 Rails.application.config.middleware.use OmniAuth::Builder do
 	provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET'],
-	   :scope => 'email,user_birthday,user_photos,read_stream, read_friendlists, friends_likes, friends_photos,
-                status_update, user_interests, friends_interests'
+	   :scope => 'user_birthday, friends_birthday, user_photos, friends_photos, user_status, friends_status, read_stream'
+
 
 # provider :openid, :store => OpenID::Store::Filesystem.new('./tmp'), :name => 'openid'
 
