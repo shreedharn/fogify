@@ -39,6 +39,7 @@ gem 'omniauth-openid',   '~> 1.0'
 gem 'koala', '~> 1.6.0'
 gem 'sidekiq', '~> 2.10.1'
 gem 'dropbox-sdk', '~> 1.5.1'
+gem 'taps', '~> 0.3.24'
 
 
 # To use ActiveModel has_secure_password
