@@ -8,8 +8,4 @@ Fogify has following features:
 - Autocomplete friend name suggestion
 - Incorporated redis for storing friend name
 
-TBD:
-- Uploading an album to cloud storage
-- Introduce gem such Sidekiq for background fetching
-
 <br>
