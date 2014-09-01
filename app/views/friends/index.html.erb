@@ -1,4 +1,6 @@
-<% if ((@hashAsArrays.nil?) || (@hashAsArrays.length == 0)) %>
+<% if ((@hashAsArrays.nil?) || (@hashAsArrays.length == 0) ||
+        (@names.nil?) || (@names.length == 0) ) %>
+
 <div class="row alert alert-block">
   <p class="text-info offset0">
     Unable to list friends by like count  !
@@ -10,9 +12,20 @@
 <table class="table  table-striped">
 <%
    i = 0
+
    @hashAsArrays.each do |key,value|
-        user_hash = @names[key][0]
+        user_hash = nil
+        hash_index = @names[key.to_s]
+        user_hash = hash_index[0] unless hash_index.blank?
+        if hash_index.blank? || user_hash.blank?
+            if ((i+=1) >= 6) # magic 6
+              break
+            else
+              next
+            end
+        end
         break if ((i+=1) >= 6) # magic 6
+
 %>
   <tr>
     <td> <%= image_tag(user_hash['pic_square']) %> </td>

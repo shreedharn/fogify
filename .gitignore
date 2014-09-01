@@ -3,6 +3,9 @@ log/
 tmp/
 .idea/
 config/application.yml
+db/development.sqlite
 db/development.sqlite3
 thin-development.yml
+geany_run_script.sh
+
 
