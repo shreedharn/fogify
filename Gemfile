@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-ruby "1.9.3" #tell heroku to use the specified ruby version
+#tell heroku to use the specified ruby version
+ruby '2.0.0'
 gem 'rails', '3.2.12'
 
 gem 'pg', '~> 0.14.1'
@@ -36,7 +37,7 @@ gem 'devise', '~> 2.2.3'
 gem 'omniauth', '~> 1.1.1'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-openid',   '~> 1.0'
-gem 'koala', '~> 1.6.0'
+gem 'koala', '~> 2.0'
 gem 'sidekiq', '~> 2.10.1'
 gem 'dropbox-sdk', '~> 1.5.1'
 gem 'taps', '~> 0.3.24'
