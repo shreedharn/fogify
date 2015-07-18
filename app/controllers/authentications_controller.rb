@@ -12,7 +12,7 @@ class AuthenticationsController < FbBaseController
 
     params[:provider] ? auth_route = params[:provider] : auth_route = 'no authentication service (invalid callback)'
     omniauth = request.env['omniauth.auth']
-    access_token = ''
+
     if omniauth and params[:provider]
 
       if auth_route == 'facebook'
@@ -21,22 +21,14 @@ class AuthenticationsController < FbBaseController
         omniauth['extra']['raw_info']['id'] ? uid = omniauth['extra']['raw_info']['id'] : uid = ''
         omniauth['provider'] ? provider = omniauth['provider'] : provider = ''
         omniauth['credentials']['token'] ? access_token = omniauth['credentials']['token'] : access_token = ''
-=begin  Block not supported
-      elsif auth_route == 'google'
-        omniauth['info']['email'] ? email = omniauth['info']['email'] : email = ""
-        omniauth['info']['name'] ? name =e    omniauth['info']['name'] : name = ""
-        omniauth['uid'] ? uid = omniauth['uid'] : uid = ''
-        omniauth['provider'] ? provider = omniauth['provider'] : provider = ""
-      end
-=end
       else
         render :text => 'Authentication method not supported !'
-        return;
+        return
       end
 
     else
         render :text => 'Error: Omniauth is empty'
-        return;
+        return
     end
     # continue only if provider and uid exist
     if uid != '' and provider != ''
@@ -60,7 +52,9 @@ class AuthenticationsController < FbBaseController
             # search for a user with this email address
             existinguser = User.find_by_email(email)
             @graph = Koala::Facebook::API.new(access_token)
-            profile = @graph.get_object("me")
+
+         #  profile = @graph.get_object("me")
+
             if existinguser
               # map this new login method via a authentication provider to an existing account if the email address is the same
               user_auth = existinguser.authentications
