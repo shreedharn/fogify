@@ -8,6 +8,8 @@ gem 'redis', '~> 3.0.3'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 
